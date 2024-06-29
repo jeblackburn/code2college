@@ -39,8 +39,13 @@ class Test(TestCase):
 
         # AAA - Assert
         after_students = list(student_repo.read_students())
-        self.assertEqual(len(after_students) - len(before_students), 1)
+        self.assertOneRowHasBeenInserted(before_students, after_students)
+        # self.assertTrue(len(before_students) < len(after_students))
 
     def test_read_students(self):
         students = student_repo.read_students()
         self.assertEqual([], list(students))
+
+
+    def assertOneRowHasBeenInserted(self, before, after):
+        self.assertEqual(len(after) - len(before), 1)
